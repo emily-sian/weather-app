@@ -59,3 +59,10 @@ hr {
 .footer {
   text-align: center;
 }
+.weather-details {
+  font-size: smaller;
+  text-align: center;
+}
+.units {
+  font-size: small;
+}

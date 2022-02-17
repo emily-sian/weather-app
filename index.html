@@ -30,36 +30,60 @@
       <div class="row justify-content-center">
         <div class="col-6 offset-3">
           <h1 id="city-name">New York</h1>
-
-          <h2>
-            <div id="current-weather">Stormy</div>
-            <br />
-            <div class="current-weather-icon"><i class="fas fa-bolt"></i></div>
-            <div><span id="current-temperature">27</span><span>°c</span></div>
-          </h2>
         </div>
         <div class="col-3 time-and-unit-container">
           <div id="date">Wednesday 22:00</div>
-          <a href="#" id="unit-button">Fahrenheit</a>
-          <button class="update-location" id="use-current-location">
-            Current
-          </button>
         </div>
       </div>
 
       <div class="row justify-content-center">
-        <div class="col-8">
-          <form class="location-updater-form" id="location-form">
-            <input
-              type="search"
-              id="location-input"
-              placeholder="Enter location"
-              autocomplete
-              autofocus
-            />
-            <input class="update-location" type="submit" value="Update" />
-          </form>
+        <div class="col-3">
+          <h2>
+            <div id="current-weather">Stormy</div>
+          </h2>
+          <div class="weather-details">Wind Speed: 27km</div>
         </div>
+        <div class="col-3">
+          <h2>
+            <div class="current-weather-icon"><i class="fas fa-bolt"></i></div>
+          </h2>
+        </div>
+        <div class="col-3">
+          <h2>
+            <div>
+              <span id="current-temperature">27</span
+              ><span class="units">
+                <a href="#">°C</a> | <a href="#">°F</a>
+              </span>
+            </div>
+          </h2>
+          <div class="weather-details">Humidity: 27%</div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <form class="location-updater-form" id="location-form">
+          <div class="row justify-content-center">
+            <div class="col-5">
+              <input
+                class="form-control"
+                type="search"
+                id="location-input"
+                placeholder="Enter location"
+                autocomplete
+                autofocus
+              />
+            </div>
+            <div class="col-3">
+              <input class="update-location" type="submit" value="Update" />
+            </div>
+            <div class="col-3">
+              <button class="update-location" id="use-current-location">
+                Current
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
 
       <div class="row justify-content-center">
