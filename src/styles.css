@@ -28,7 +28,6 @@ hr {
   font-size: 58px;
   margin: 10px;
 }
-
 .location-updater-form {
   margin: 0 auto 24px;
   text-align: center;
@@ -41,18 +40,19 @@ hr {
   color: #fafafa;
   font-size: 14px;
   line-height: 22px;
+  margin: 0 26px 24px;
   padding: 6px 16px;
   transition: all 200ms ease-in-out;
+  width: 80%;
 }
 .update-location:hover {
   background-color: #a68ed9;
   cursor: pointer;
 }
-
 .daily-forecast {
   text-align: center;
 }
-.time-and-unit-container {
+.date-time {
   text-align: end;
   font-size: 14px;
 }
@@ -65,4 +65,9 @@ hr {
 }
 .units {
   font-size: small;
+}
+.units .active {
+  color: rgb(33, 33, 33);
+  cursor: default;
+  text-decoration: none;
 }
