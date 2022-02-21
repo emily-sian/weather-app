@@ -49,23 +49,26 @@ function displayForecast(response) {
     if (index < 5) {
       forecastHtml += `
         <div class="col-2 daily-forecast">
-            ${formatDay(day.dt)}
-            <div>
-             <img
-              class="forecast-weather-icon"
-              src="http://openweathermap.org/img/wn/${
-                day.weather[0].icon
-              }@2x.png"
-              alt=""
-              width="42"
-            />
-            </div>
-            <div class="temp">
-              ${Math.round(day.temp.max)}°
-              <hr />
-              ${Math.round(day.temp.min)}°
-            </div>
+          ${formatDay(day.dt)}
+          <div>
+            <img
+            class="forecast-weather-icon"
+            src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png"
+            alt=""
+            width="42"
+          />
           </div>
+          <div class="daily-temp-celsius">
+            ${Math.round(day.temp.max)}°
+            <hr />
+            ${Math.round(day.temp.min)}°
+          </div>
+          <div class="daily-temp-farenheit hidden">
+            ${Math.round(convertToFarenheit(day.temp.max))}°
+            <hr />
+            ${Math.round(convertToFarenheit(day.temp.min))}°
+          </div>
+        </div>
     `;
     }
   });
@@ -130,6 +133,14 @@ function onCelsiusClick(event) {
   event.preventDefault();
   farenheitLink.classList.remove("active");
   celsiusLink.classList.add("active");
+  document
+    .querySelectorAll(".daily-temp-farenheit")
+    .forEach(function (element) {
+      element.classList.add("hidden");
+    });
+  document.querySelectorAll(".daily-temp-celsius").forEach(function (element) {
+    element.classList.remove("hidden");
+  });
   let temperatureDisplay = document.querySelector("#current-temperature");
   temperatureDisplay.innerText = Math.round(currentTempInCelsius);
 }
@@ -138,9 +149,21 @@ function onFarenheitClick(event) {
   event.preventDefault();
   celsiusLink.classList.remove("active");
   farenheitLink.classList.add("active");
+  document.querySelectorAll(".daily-temp-celsius").forEach(function (element) {
+    element.classList.add("hidden");
+  });
+  document
+    .querySelectorAll(".daily-temp-farenheit")
+    .forEach(function (element) {
+      element.classList.remove("hidden");
+    });
   currentTempInFarenheit = (currentTempInCelsius * 9) / 5 + 32;
   let temperatureDisplay = document.querySelector("#current-temperature");
   temperatureDisplay.innerText = Math.round(currentTempInFarenheit);
+}
+
+function convertToFarenheit(temperature) {
+  return (temperature * 9) / 5 + 32;
 }
 
 const apiKey = "cc927259dd293f79531abf4c09787aca";

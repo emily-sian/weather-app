@@ -71,3 +71,6 @@ hr {
   cursor: default;
   text-decoration: none;
 }
+.hidden {
+  display: none;
+}
