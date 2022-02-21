@@ -25,13 +25,53 @@ function setWeather(response) {
   windSpeed.innerText = response.data.wind.speed;
 
   let dateTime = document.querySelector("#date-time");
-  dateTime.innerHTML = formatDate(response.data.dt * 1000);
+  dateTime.innerHTML = formatDateTime(response.data.dt * 1000);
 
   let currentWeatherIcon = document.querySelector("#current-weather-icon");
   currentWeatherIcon.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
+  getForecast(response.data.coord);
+}
+
+function getForecast(coordinates) {
+  let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${unit}`;
+  axios.get(apiURL).then(displayForecast);
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
+  let forcastElement = document.querySelector("#weekly-forecast");
+  let forecastHtml = `<div class="row justify-content-center">`;
+
+  forecast.forEach(function (day, index) {
+    if (index < 5) {
+      forecastHtml += `
+        <div class="col-2 daily-forecast">
+            ${formatDay(day.dt)}
+            <div>
+             <img
+              class="forecast-weather-icon"
+              src="http://openweathermap.org/img/wn/${
+                day.weather[0].icon
+              }@2x.png"
+              alt=""
+              width="42"
+            />
+            </div>
+            <div class="temp">
+              ${Math.round(day.temp.max)}°
+              <hr />
+              ${Math.round(day.temp.min)}°
+            </div>
+          </div>
+    `;
+    }
+  });
+
+  forecastHtml += `</div>`;
+  forcastElement.innerHTML = forecastHtml;
 }
 
 // Update weather from current location
@@ -48,7 +88,7 @@ function setCurrentCity(position) {
   axios.get(apiURL).then(setWeather);
 }
 
-function formatDate(timestamp) {
+function formatDateTime(timestamp) {
   let days = [
     "Sunday",
     "Monday",
@@ -65,6 +105,13 @@ function formatDate(timestamp) {
   let minute = date.getMinutes().toString().padStart(2, "0");
 
   return `${day} ${hour}:${minute}`;
+}
+
+function formatDay(timestamp) {
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let date = new Date(timestamp * 1000);
+  let day = days[date.getDay()];
+  return day;
 }
 
 function getCityWeather(city) {
